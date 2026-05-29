@@ -27,7 +27,7 @@ private:
 public:
     Trie() { root = new Node(); }
 
-    void insert(string word) {
+    void insert(string &word) {
         Node* node = root;
         for (int i = 0; i < word.size(); i++) {
             char ch = word[i];
@@ -38,7 +38,7 @@ public:
         node->setEnd();
     }
 
-    bool search(string word) {
+    bool search(string &word) {
         Node* node = root;
         for (int i = 0; i < word.size(); i++) {
             char ch = word[i];
@@ -49,7 +49,7 @@ public:
         return node->getEnd();
     }
 
-    bool startsWith(string prefix) {
+    bool startsWith(string &prefix) {
         Node* node = root;
         for (int i = 0; i < prefix.size(); i++) {
             char ch = prefix[i];
