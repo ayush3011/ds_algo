@@ -2,8 +2,13 @@ struct Node {
     Node* links[26];
     bool flag = false;
 
-    bool containsChar(char ch, Node* node) {
-        return (node->links[ch - 'a'] != NULL);
+    Node() {
+        for(int i = 0; i < 26; i++)
+            links[i] = nullptr;
+    }
+
+    bool containsChar(char ch) {
+        return links[ch - 'a'] != NULL;
     }
 
     void put(char ch, Node* node) { links[ch - 'a'] = node; }
@@ -26,7 +31,7 @@ public:
         Node* node = root;
         for (int i = 0; i < word.size(); i++) {
             char ch = word[i];
-            if (!(node->containsChar(ch, node)))
+            if (!(node->containsChar(ch)))
                 node->put(ch, new Node());
             node = node->get(ch);
         }
@@ -37,7 +42,7 @@ public:
         Node* node = root;
         for (int i = 0; i < word.size(); i++) {
             char ch = word[i];
-            if (!(node->containsChar(ch, node)))
+            if (!(node->containsChar(ch)))
                 return false;
             node = node->get(ch);
         }
@@ -48,7 +53,7 @@ public:
         Node* node = root;
         for (int i = 0; i < prefix.size(); i++) {
             char ch = prefix[i];
-            if (!(node->containsChar(ch, node)))
+            if (!(node->containsChar(ch)))
                 return false;
             node = node->get(ch);
         }
