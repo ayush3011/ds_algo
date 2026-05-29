@@ -1,35 +1,44 @@
-struct Node {
-    Node* links[26];
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    Node *links[26];
     bool flag = false;
 
-    Node() {
-        for(int i = 0; i < 26; i++)
+    Node()
+    {
+        for (int i = 0; i < 26; i++)
             links[i] = nullptr;
     }
 
-    bool containsChar(char ch) {
+    bool containsChar(char ch)
+    {
         return links[ch - 'a'] != NULL;
     }
 
-    void put(char ch, Node* node) { links[ch - 'a'] = node; }
+    void put(char ch, Node *node) { links[ch - 'a'] = node; }
 
-    Node* get(char ch) { return links[ch - 'a']; }
+    Node *get(char ch) { return links[ch - 'a']; }
 
     void setEnd() { flag = true; }
 
     bool getEnd() { return flag; }
 };
 
-class Trie {
+class Trie
+{
 private:
-    Node* root;
+    Node *root;
 
 public:
     Trie() { root = new Node(); }
 
-    void insert(string &word) {
-        Node* node = root;
-        for (int i = 0; i < word.size(); i++) {
+    void insert(const string& word)
+    {
+        Node *node = root;
+        for (int i = 0; i < word.size(); i++)
+        {
             char ch = word[i];
             if (!(node->containsChar(ch)))
                 node->put(ch, new Node());
@@ -38,9 +47,11 @@ public:
         node->setEnd();
     }
 
-    bool search(string &word) {
-        Node* node = root;
-        for (int i = 0; i < word.size(); i++) {
+    bool search(const string& word)
+    {
+        Node *node = root;
+        for (int i = 0; i < word.size(); i++)
+        {
             char ch = word[i];
             if (!(node->containsChar(ch)))
                 return false;
@@ -49,9 +60,11 @@ public:
         return node->getEnd();
     }
 
-    bool startsWith(string &prefix) {
-        Node* node = root;
-        for (int i = 0; i < prefix.size(); i++) {
+    bool startsWith(const string& prefix)
+    {
+        Node *node = root;
+        for (int i = 0; i < prefix.size(); i++)
+        {
             char ch = prefix[i];
             if (!(node->containsChar(ch)))
                 return false;
@@ -60,6 +73,17 @@ public:
         return true;
     }
 };
+
+int main()
+{
+    Trie trie;
+    trie.insert("apple");
+    trie.insert("application");
+    trie.insert("apps");
+    cout << trie.search("applee") << endl;
+    cout << trie.startsWith("applica");
+    return 0;
+}
 
 /**
  * Your Trie object will be instantiated and called as such:
